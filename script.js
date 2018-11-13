@@ -22,15 +22,22 @@ class List {
         this.addButton.addEventListener('click', () => {
             this.addTask()
             this.render()
+            this.inputValue.value = ''
             console.log(this.tasks)
         })
     }
+    makeDeleteButton() {
+        return `<div class="task-list__item--delete">
+        <i class="fas fa-trash-alt"></i>
+    </div>`
+    }
+
     render() {
         this.list.innerHTML = ''
         this.tasks.forEach(task => {
             const li = document.createElement('li')
             li.setAttribute('class', 'task-list__item')
-            li.innerText = task.text
+            li.innerHTML = task.text + this.makeDeleteButton()
             this.list.appendChild(li)
         })
     }

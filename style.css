@@ -80,20 +80,28 @@ body {
 }
 
 .task-list__list {
+    width: 70%;
+    margin: 0 auto;
     list-style: none;
     padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: space-between;
+    background-color: #44bd32;
 }
 
 .task-list__item {
     text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.fa-trash-alt {
+    color: #f5f6fa;
 }
 
 .task-list__item--delete {
-    background-color: #c23616;
-    color: white;
-    font-size: 20px;
+    cursor: pointer;
 }
