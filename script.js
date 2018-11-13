@@ -19,7 +19,7 @@ class List {
     }
 
     deleteTask(i) {
-        this.tasks.slice(i)
+        this.tasks.splice(i, 1)
     }
 
 
@@ -38,6 +38,7 @@ class List {
         deleteBtn.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.list.removeChild(e.target.parentNode.parentNode)
+                console.log(this.tasks.index)
             })
         })
     }
@@ -65,6 +66,7 @@ class Task {
         this.text = text
         this.index = index
     }
+
 }
 
 const list = new List(document.querySelector('.task-list'))
