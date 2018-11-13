@@ -80,7 +80,7 @@ body {
 }
 
 .task-list__list {
-    width: 70%;
+    max-width: 70%;
     margin: 0 auto;
     list-style: none;
     padding: 0;
@@ -94,6 +94,8 @@ body {
 .task-list__item {
     text-transform: uppercase;
     display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
     justify-content: space-between;
     padding: 20px;
 }

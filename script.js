@@ -11,21 +11,37 @@ class List {
 
     init() {
         this.render()
-        this.buttonListener()
+        this.addButtonListener()
     }
 
     addTask() {
-        this.tasks.push(new Task(this.inputValue.value))
+        this.tasks.push(new Task(this.inputValue.value, this.tasks.length))
     }
 
-    buttonListener() {
+    deleteTask(i) {
+        this.tasks.slice(i)
+    }
+
+
+    addButtonListener() {
         this.addButton.addEventListener('click', () => {
             this.addTask()
             this.render()
             this.inputValue.value = ''
             console.log(this.tasks)
+            this.deleteTaskListener()
         })
     }
+
+    deleteTaskListener() {
+        const deleteBtn = [...document.querySelectorAll('.task-list__item--delete')]
+        deleteBtn.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.list.removeChild(e.target.parentNode.parentNode)
+            })
+        })
+    }
+
     makeDeleteButton() {
         return `<div class="task-list__item--delete">
         <i class="fas fa-trash-alt"></i>
@@ -45,8 +61,9 @@ class List {
 }
 
 class Task {
-    constructor(text) {
+    constructor(text, index) {
         this.text = text
+        this.index = index
     }
 }
 
