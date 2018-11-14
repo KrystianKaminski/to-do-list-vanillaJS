@@ -10,9 +10,9 @@ class App {
 
   init() {
     this.box.render();
-    this.listParent = this.list.render();
     this.addTaskListener();
     this.searchListener();
+    this.listParent = this.list.render();
     this.myLocalStorage();
   }
 
@@ -22,6 +22,7 @@ class App {
       const task = new Task(items[item], item);
       this.tasks.push(task);
       this.listParent.appendChild(task.render());
+      this.deleteListener();
     }
   }
 
@@ -172,7 +173,7 @@ class Task {
     const li = document.createElement("li");
     const button = document.createElement("button");
     li.setAttribute("class", "task-list__item");
-    li.setAttribute("id", `${this.index}`);
+    button.setAttribute("id", `${this.index}`);
     li.innerText = this.text;
     button.setAttribute("class", "task-list__item--delete");
     button.innerHTML = '<i class="fas fa-trash-alt"></i>';
