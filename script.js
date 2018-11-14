@@ -128,7 +128,6 @@ class App {
       this.tasks.map(task => {
         if (task.isCompleted === false) {
           this.listParent.appendChild(task.render());
-          console.log(task.isCompleted);
         }
       });
     });
@@ -184,9 +183,13 @@ class InputBox {
     this.optionsButton.appendChild(this.finishedTasks);
     this.optionsButton.appendChild(this.notFinishedTasks);
     this.optionsButton.style.marginTop = "20px";
+    this.optionsButton.setAttribute("class", "option-buttons-container");
     this.allTasks.innerText = "Show all tasks";
     this.finishedTasks.innerText = "Show finished tasks";
     this.notFinishedTasks.innerText = "Show not finished tasks";
+    this.allTasks.setAttribute("class", "add-task-box__button");
+    this.finishedTasks.setAttribute("class", "add-task-box__button");
+    this.notFinishedTasks.setAttribute("class", "add-task-box__button");
   }
 
   readValue() {

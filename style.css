@@ -17,6 +17,7 @@ body {
   outline: none;
 }
 
+
 .title {
   color: white;
   text-transform: uppercase;
@@ -24,7 +25,8 @@ body {
   text-align: center;
 }
 
-.add-task-box {
+.add-task-box,
+.option-buttons-container {
   margin: 100px auto;
   display: flex;
   justify-content: center;
@@ -54,7 +56,7 @@ body {
   background-color: #eee;
 }
 
-.add-task-box__input ~ .add-task-box__input-border {
+.add-task-box__input~.add-task-box__input-border {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -64,14 +66,9 @@ body {
   transition: 0.4s;
 }
 
-.add-task-box__input:focus ~ .add-task-box__input-border {
+.add-task-box__input:focus~.add-task-box__input-border {
   width: 100%;
   transition: 0.4s;
-}
-
-.add-task-box__button {
-  margin-top: 30px;
-  width: 100px;
 }
 
 .task-list__title {
@@ -116,4 +113,33 @@ body {
 
 .fa-trash-alt:hover {
   color: #ccc;
+}
+
+.add-task-box__button {
+  margin: 30px 15px 15px 0;
+  width: 200px;
+  background: #3d94f6;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 100;
+  padding: 10px;
+  box-shadow: 1px 1px 20px 0px #000000;
+  text-shadow: 1px 1px 20px #000000;
+  border: solid #337fed 1px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.add-task-box__button:hover {
+  background: #1e62d0;
+  background-image: linear-gradient(to bottom, #1e62d0, #3d94f6);
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+  .option-buttons-container {
+    flex-direction: row;
+  }
 }
