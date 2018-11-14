@@ -3,11 +3,26 @@ class App {
     this.container = document.querySelector(container) || document.body;
     this.box = new InputBox(this.container);
     this.list = new List(this.container);
+    this.tasks = [];
+
+    this.init();
+  }
+
+  init() {
     this.box.render();
     this.listParent = this.list.render();
-    this.tasks = [];
     this.addTaskListener();
     this.searchListener();
+    this.myLocalStorage();
+  }
+
+  myLocalStorage() {
+    const items = { ...localStorage };
+    for (let item in items) {
+      const task = new Task(items[item], item);
+      this.tasks.push(task);
+      this.listParent.appendChild(task.render());
+    }
   }
 
   addTask() {
@@ -16,6 +31,7 @@ class App {
       this.tasks.push(task);
       this.listParent.appendChild(task.render());
       this.box.input.value = "";
+      window.localStorage.setItem(`${task.index}`, `${task.text}`);
     } else {
       alert("Please name your task");
     }
@@ -33,6 +49,7 @@ class App {
       btn.addEventListener("click", e => {
         e.stopPropagation();
         this.deleteTask(btn.id);
+        window.localStorage.removeItem(btn.id);
         this.listParent.removeChild(e.target.parentNode.parentNode);
       });
     });
