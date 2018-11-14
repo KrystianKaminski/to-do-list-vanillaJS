@@ -7,6 +7,7 @@ class App {
     this.listParent = this.list.render();
     this.tasks = [];
     this.addTaskListener();
+    this.searchListener();
   }
 
   addTask() {
@@ -37,11 +38,28 @@ class App {
     });
   }
 
+  searchingTasks() {
+    this.listParent.innerHTML = "";
+    this.tasks = this.tasks.filter(task => {
+      if (task.text.includes(this.box.searchValue())) {
+        this.listParent.appendChild(task.render());
+        return true;
+      }
+    });
+  }
+
+  searchListener() {
+    this.box.searchButton.addEventListener("click", () => {
+      this.searchingTasks();
+    });
+  }
+
   addTaskListener() {
     this.box.button.addEventListener("click", () => {
       this.addTask();
       this.render();
       this.deleteListener();
+      this.searchListener();
     });
   }
 
@@ -61,6 +79,8 @@ class InputBox {
     this.input = document.createElement("input");
     this.inputBorder = document.createElement("span");
     this.button = document.createElement("button");
+    this.searchList = document.createElement("input");
+    this.searchButton = document.createElement("button");
   }
   render() {
     this.taskBox.setAttribute("class", "add-task-box");
@@ -68,20 +88,30 @@ class InputBox {
     this.title.innerText = "Please add your task";
     this.inputBox.setAttribute("class", "add-task-box__input-box");
     this.input.setAttribute("class", "add-task-box__input");
+    this.searchList.setAttribute("class", "add-task-box__input");
     this.input.setAttribute("placeholder", "Go to the shop...");
     this.inputBorder.setAttribute("class", "add-task-box__input-border");
+    this.inputBorder.setAttribute("class", "add-task-box__input-border");
     this.button.setAttribute("class", "add-task-box__button");
+    this.searchButton.setAttribute("class", "add-task-box__button");
     this.button.innerText = "Add task to list";
+    this.searchButton.innerText = "Search tasks";
     this.parent.appendChild(this.taskBox);
     this.taskBox.appendChild(this.title);
     this.taskBox.appendChild(this.inputBox);
     this.inputBox.appendChild(this.input);
     this.inputBox.appendChild(this.inputBorder);
     this.taskBox.appendChild(this.button);
+    this.taskBox.appendChild(this.searchList);
+    this.taskBox.appendChild(this.searchButton);
   }
 
   readValue() {
     return this.input.value;
+  }
+
+  searchValue() {
+    return this.searchList.value;
   }
 }
 
