@@ -10,10 +10,13 @@ class App {
 
   init() {
     this.box.render();
+    this.listParent = this.list.render();
     this.addTaskListener();
     this.searchListener();
-    this.listParent = this.list.render();
     this.myLocalStorage();
+    this.showAllTask();
+    this.showFinishedTasks();
+    this.showNotFinishedTasks();
   }
 
   myLocalStorage() {
@@ -91,6 +94,46 @@ class App {
     });
   }
 
+  showAllTask() {
+    this.box.allTasks.addEventListener("click", () => {
+      this.listParent.innerHTML = "";
+      this.tasks.map(task => {
+        let render = task.render();
+        this.listParent.appendChild(render);
+        if (task.isCompleted) {
+          render.style.textDecoration = "line-through";
+          render.style.color = "#718093";
+        }
+      });
+    });
+  }
+
+  showFinishedTasks() {
+    this.box.finishedTasks.addEventListener("click", () => {
+      this.listParent.innerHTML = "";
+      this.tasks.map(task => {
+        if (task.isCompleted === true) {
+          let render = task.render();
+          this.listParent.appendChild(render);
+          render.style.textDecoration = "line-through";
+          render.style.color = "#718093";
+        }
+      });
+    });
+  }
+
+  showNotFinishedTasks() {
+    this.box.notFinishedTasks.addEventListener("click", () => {
+      this.listParent.innerHTML = "";
+      this.tasks.map(task => {
+        if (task.isCompleted === false) {
+          this.listParent.appendChild(task.render());
+          console.log(task.isCompleted);
+        }
+      });
+    });
+  }
+
   render() {
     this.tasks.forEach(task => {
       task.render();
@@ -102,6 +145,7 @@ class InputBox {
   constructor(parent) {
     this.parent = parent;
     this.taskBox = document.createElement("div");
+    this.optionsButton = document.createElement("div");
     this.title = document.createElement("h2");
     this.inputBox = document.createElement("div");
     this.input = document.createElement("input");
@@ -109,6 +153,9 @@ class InputBox {
     this.button = document.createElement("button");
     this.searchList = document.createElement("input");
     this.searchButton = document.createElement("button");
+    this.allTasks = document.createElement("button");
+    this.finishedTasks = document.createElement("button");
+    this.notFinishedTasks = document.createElement("button");
   }
   render() {
     this.taskBox.setAttribute("class", "add-task-box");
@@ -132,6 +179,14 @@ class InputBox {
     this.taskBox.appendChild(this.button);
     this.taskBox.appendChild(this.searchList);
     this.taskBox.appendChild(this.searchButton);
+    this.taskBox.appendChild(this.optionsButton);
+    this.optionsButton.appendChild(this.allTasks);
+    this.optionsButton.appendChild(this.finishedTasks);
+    this.optionsButton.appendChild(this.notFinishedTasks);
+    this.optionsButton.style.marginTop = "20px";
+    this.allTasks.innerText = "Show all tasks";
+    this.finishedTasks.innerText = "Show finished tasks";
+    this.notFinishedTasks.innerText = "Show not finished tasks";
   }
 
   readValue() {
@@ -196,6 +251,7 @@ class Task {
 
   toggleTask() {
     this.isCompleted = !this.isCompleted;
+    console.log(this.isCompleted);
   }
 }
 const app = new App(".container");
