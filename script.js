@@ -108,6 +108,7 @@ class Task {
   constructor(text, index) {
     this.text = text;
     this.index = index;
+    this.isCompleted = false;
   }
 
   render() {
@@ -120,7 +121,23 @@ class Task {
     button.innerHTML = '<i class="fas fa-trash-alt"></i>';
     li.appendChild(button);
 
+    li.addEventListener("click", () => {
+      if (this.isCompleted === false) {
+        this.toggleTask();
+        li.style.textDecoration = "line-through";
+        li.style.color = "#718093";
+      } else {
+        this.toggleTask();
+        li.style.textDecoration = "none";
+        li.style.color = "#dcdde1";
+      }
+    });
+
     return li;
+  }
+
+  toggleTask() {
+    this.isCompleted = !this.isCompleted;
   }
 }
 const app = new App(".container");

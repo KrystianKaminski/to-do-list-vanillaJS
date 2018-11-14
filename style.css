@@ -92,7 +92,7 @@ body {
 }
 
 .task-list__item {
-  text-transform: uppercase;
+  color: #dcdde1;
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
@@ -103,6 +103,7 @@ body {
 .fa-trash-alt {
   color: #f5f6fa;
   font-size: 20px;
+  transition: 0.4s;
 }
 
 .task-list__item--delete {
@@ -110,4 +111,8 @@ body {
   border: 0;
   padding: 0;
   background-color: transparent;
+}
+
+.fa-trash-alt:hover {
+  color: #ccc;
 }
