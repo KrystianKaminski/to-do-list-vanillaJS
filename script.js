@@ -6,20 +6,42 @@ class App {
     this.box.render();
     this.listParent = this.list.render();
     this.tasks = [];
-
     this.addTaskListener();
   }
 
   addTask() {
-    const task = new Task(this.box.readValue());
-    this.tasks.push(task);
-    this.listParent.appendChild(task.render());
+    if (this.box.readValue() !== "") {
+      const task = new Task(this.box.readValue(), this.tasks.length);
+      this.tasks.push(task);
+      this.listParent.appendChild(task.render());
+      this.box.input.value = "";
+    } else {
+      alert("Please name your task");
+    }
+  }
+
+  deleteTask(index) {
+    this.tasks = this.tasks.slice(0, index).concat(this.tasks.slice(index + 1));
+  }
+
+  deleteListener() {
+    const deleteButtons = [
+      ...document.querySelectorAll(".task-list__item--delete")
+    ];
+    deleteButtons.forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.stopPropagation();
+        this.deleteTask(btn.id);
+        this.listParent.removeChild(e.target.parentNode.parentNode);
+      });
+    });
   }
 
   addTaskListener() {
     this.box.button.addEventListener("click", () => {
       this.addTask();
       this.render();
+      this.deleteListener();
     });
   }
 
@@ -83,18 +105,21 @@ class List {
 }
 
 class Task {
-  constructor(text) {
+  constructor(text, index) {
     this.text = text;
+    this.index = index;
   }
 
   render() {
     const li = document.createElement("li");
     const button = document.createElement("button");
     li.setAttribute("class", "task-list__item");
+    li.setAttribute("id", `${this.index}`);
     li.innerText = this.text;
     button.setAttribute("class", "task-list__item--delete");
     button.innerHTML = '<i class="fas fa-trash-alt"></i>';
     li.appendChild(button);
+
     return li;
   }
 }
