@@ -41,7 +41,7 @@ class App {
   searchingTasks() {
     this.listParent.innerHTML = "";
     this.tasks = this.tasks.filter(task => {
-      if (task.text.includes(this.box.searchValue())) {
+      if (task.text.toLowerCase().includes(this.box.searchValue())) {
         this.listParent.appendChild(task.render());
         return true;
       }
