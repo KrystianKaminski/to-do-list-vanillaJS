@@ -19,6 +19,12 @@ class App {
     input.setAttribute('class', 'add-task-box__input')
     button.setAttribute('class', 'add-task-box__button')
 
+    button.addEventListener('click', () => {
+      this.addTask(input.value)
+      input.value = ''
+      this.render()
+    })
+
     button.innerText = 'Add task'
 
 
@@ -28,8 +34,22 @@ class App {
     this.container.appendChild(inputBox)
   }
 
+  addTask(text) {
+    this.tasks.push(new Task(text))
+  }
+
   render() {
+    this.container.innerHTML = ''
     this.makeUI()
+    const list = document.createElement('ul')
+
+    this.tasks.forEach(task => {
+      const element = document.createElement('li')
+      element.innerText = task.text
+      list.appendChild(element)
+    })
+
+    this.container.appendChild(list)
   }
 }
 
