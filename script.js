@@ -41,10 +41,16 @@ class App {
   render() {
     this.container.innerHTML = ''
     this.makeUI()
+
     const list = document.createElement('ul')
+
+    list.setAttribute('class', 'task-list__list')
 
     this.tasks.forEach(task => {
       const element = document.createElement('li')
+
+      element.setAttribute('class', 'task-list__item')
+
       element.innerText = task.text
       list.appendChild(element)
     })
