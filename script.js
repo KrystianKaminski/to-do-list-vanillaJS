@@ -14,10 +14,14 @@
 
     makeUI() {
       const inputBox = document.createElement('div')
+
       const input = document.createElement('input')
       const inputSearch = document.createElement('input')
+
       const button = document.createElement('button')
       const searchButton = document.createElement('button')
+      const allTasksButton = document.createElement('button')
+      const finishedButton = document.createElement('button')
 
       inputBox.setAttribute('class', 'add-task-box')
       input.setAttribute('class', 'add-task-box__input')
@@ -35,16 +39,39 @@
         this.searchTasks(inputSearch.value)
       })
 
+      allTasksButton.addEventListener('click', () => {
+        this.showAllTasks()
+      })
+
+      finishedButton.addEventListener('click', () => {
+        this.showFinishedTasks()
+      })
+
       button.innerText = 'Add task'
       searchButton.innerText = 'Search tasks'
+      allTasksButton.innerText = 'Show all tasks'
+      finishedButton.innerText = 'Show finished tasks'
 
 
       inputBox.appendChild(input)
       inputBox.appendChild(button)
+
       inputBox.appendChild(inputSearch)
       inputBox.appendChild(searchButton)
 
+      inputBox.appendChild(allTasksButton)
+      inputBox.appendChild(finishedButton)
+
       this.container.appendChild(inputBox)
+    }
+
+    showFinishedTasks() {
+      const finished = this.tasks.filter(task => task.isCompleted)
+      this.render(finished)
+    }
+
+    showAllTasks() {
+      this.render()
     }
 
     saveInLocalStorage() {
@@ -86,15 +113,16 @@
       this.saveInLocalStorage()
     }
 
-    render() {
+    render(arr) {
       this.container.innerHTML = ''
       this.makeUI()
 
       const list = document.createElement('ul')
+      const arrayToRender = arr || this.tasks
 
       list.setAttribute('class', 'task-list__list')
 
-      this.tasks.forEach((task, index) => {
+      arrayToRender.forEach((task, index) => {
         const element = document.createElement('li')
         const deleteBtn = document.createElement('button')
 
