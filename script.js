@@ -15,11 +15,15 @@
     makeUI() {
       const inputBox = document.createElement('div')
       const input = document.createElement('input')
+      const inputSearch = document.createElement('input')
       const button = document.createElement('button')
+      const searchButton = document.createElement('button')
 
       inputBox.setAttribute('class', 'add-task-box')
       input.setAttribute('class', 'add-task-box__input')
+      inputSearch.setAttribute('class', 'add-task-box__input')
       button.setAttribute('class', 'add-task-box__button')
+      searchButton.setAttribute('class', 'add-task-box__button')
 
       button.addEventListener('click', () => {
         this.addTask(input.value)
@@ -27,13 +31,34 @@
         this.render()
       })
 
+      searchButton.addEventListener('click', () => {
+        this.searchTasks(inputSearch.value)
+      })
+
       button.innerText = 'Add task'
+      searchButton.innerText = 'Search tasks'
 
 
       inputBox.appendChild(input)
       inputBox.appendChild(button)
+      inputBox.appendChild(inputSearch)
+      inputBox.appendChild(searchButton)
 
       this.container.appendChild(inputBox)
+    }
+
+    searchTasks(value) {
+      this.tasks = this.tasks.filter(task =>
+        task.text
+        .replace(/\s/g, '')
+        .toLowerCase()
+        .includes(
+          value
+          .replace(/\s/g, '')
+          .toLowerCase()
+        )
+      )
+      this.render()
     }
 
     addTask(text) {
