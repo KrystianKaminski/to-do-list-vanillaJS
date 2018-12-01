@@ -46,6 +46,11 @@ class App {
     this.render()
   }
 
+  toggleIsCompleted(task) {
+    task.isCompleted = !task.isCompleted
+    this.render()
+  }
+
   render() {
     this.container.innerHTML = ''
     this.makeUI()
@@ -57,6 +62,24 @@ class App {
     this.tasks.forEach((task, index) => {
       const element = document.createElement('li')
       const deleteBtn = document.createElement('button')
+
+      element.addEventListener('click', () => {
+        if (task.isCompleted === true) {
+          element.style.textDecoration = 'line-through'
+        } else {
+          element.style.textDecoration = 'none'
+        }
+        this.toggleIsCompleted(task)
+      })
+
+      if (task.isCompleted) {
+        element.style.textDecoration = 'line-through'
+        element.style.color = '#718093'
+      } else {
+        element.style.textDecoration = 'none'
+        element.style.color = '#dcdde1'
+      }
+
 
       deleteBtn.addEventListener('click', () => this.deleteTask(index))
 
