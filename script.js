@@ -22,6 +22,7 @@
       const searchButton = document.createElement('button')
       const allTasksButton = document.createElement('button')
       const finishedButton = document.createElement('button')
+      const notFinishedButton = document.createElement('button')
 
       inputBox.setAttribute('class', 'add-task-box')
       input.setAttribute('class', 'add-task-box__input')
@@ -47,10 +48,15 @@
         this.showFinishedTasks()
       })
 
+      notFinishedButton.addEventListener('click', () => {
+        this.showNotFinishedTasks()
+      })
+
       button.innerText = 'Add task'
       searchButton.innerText = 'Search tasks'
       allTasksButton.innerText = 'Show all tasks'
       finishedButton.innerText = 'Show finished tasks'
+      notFinishedButton.innerText = 'Show not finished tasks'
 
 
       inputBox.appendChild(input)
@@ -61,6 +67,7 @@
 
       inputBox.appendChild(allTasksButton)
       inputBox.appendChild(finishedButton)
+      inputBox.appendChild(notFinishedButton)
 
       this.container.appendChild(inputBox)
     }
@@ -68,6 +75,11 @@
     showFinishedTasks() {
       const finished = this.tasks.filter(task => task.isCompleted)
       this.render(finished)
+    }
+
+    showNotFinishedTasks() {
+      const notFinished = this.tasks.filter(task => !task.isCompleted)
+      this.render(notFinished)
     }
 
     showAllTasks() {
