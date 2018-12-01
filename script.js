@@ -3,7 +3,7 @@
   class App {
     constructor(container) {
       this.container = document.querySelector(container) || document.body
-      this.tasks = []
+      this.tasks = JSON.parse(window.localStorage.getItem('ToDo')) || []
 
       this.init()
     }
@@ -47,6 +47,10 @@
       this.container.appendChild(inputBox)
     }
 
+    saveInLocalStorage() {
+      window.localStorage.setItem('ToDo', JSON.stringify(this.tasks))
+    }
+
     searchTasks(value) {
       this.tasks = this.tasks.filter(task =>
         task.text
@@ -59,10 +63,12 @@
         )
       )
       this.render()
+      this.saveInLocalStorage()
     }
 
     addTask(text) {
       this.tasks.push(new Task(text))
+      this.saveInLocalStorage()
     }
 
     deleteTask(index) {
@@ -71,11 +77,13 @@
         .concat(this.tasks.slice(index + 1))
 
       this.render()
+      this.saveInLocalStorage()
     }
 
     toggleIsCompleted(task) {
       task.isCompleted = !task.isCompleted
       this.render()
+      this.saveInLocalStorage()
     }
 
     render() {
