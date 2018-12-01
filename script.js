@@ -2,7 +2,6 @@ class App {
   constructor(container) {
     this.container = document.querySelector(container) || document.body
     this.tasks = []
-    this.inputBox = new InputBox(this.container)
 
     this.init()
   }
@@ -11,41 +10,36 @@ class App {
     this.render()
   }
 
-  render() {
-    this.inputBox.render()
-  }
-}
-
-class InputBox {
-  constructor(parent) {
-    this.parent = parent
-  }
-
-  render() {
-    const inputBoxDiv = document.createElement('div')
+  makeUI() {
+    const inputBox = document.createElement('div')
     const input = document.createElement('input')
     const button = document.createElement('button')
 
+    inputBox.setAttribute('class', 'add-task-box')
+    input.setAttribute('class', 'add-task-box__input')
+    button.setAttribute('class', 'add-task-box__button')
+
     button.innerText = 'Add task'
 
-    inputBoxDiv.setAttribute('class', 'add-task-box')
 
-    inputBoxDiv.appendChild(input)
-    inputBoxDiv.appendChild(button)
-    this.parent.appendChild(inputBoxDiv)
+    inputBox.appendChild(input)
+    inputBox.appendChild(button)
+
+    this.container.appendChild(inputBox)
   }
-}
 
-class List {
-  constructor() {
-
+  render() {
+    this.makeUI()
   }
 }
 
 class Task {
-  constructor() {
-
+  constructor(text) {
+    this.text = text
+    this.isCompleted = false
   }
 }
+
+
 
 const app = new App('.container')
