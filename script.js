@@ -38,6 +38,14 @@ class App {
     this.tasks.push(new Task(text))
   }
 
+  deleteTask(index) {
+    this.tasks = this.tasks
+      .slice(0, index)
+      .concat(this.tasks.slice(index + 1))
+
+    this.render()
+  }
+
   render() {
     this.container.innerHTML = ''
     this.makeUI()
@@ -46,13 +54,20 @@ class App {
 
     list.setAttribute('class', 'task-list__list')
 
-    this.tasks.forEach(task => {
+    this.tasks.forEach((task, index) => {
       const element = document.createElement('li')
+      const deleteBtn = document.createElement('button')
+
+      deleteBtn.addEventListener('click', () => this.deleteTask(index))
 
       element.setAttribute('class', 'task-list__item')
+      deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`
+      deleteBtn.setAttribute('class', 'task-list__item--delete')
 
       element.innerText = task.text
+
       list.appendChild(element)
+      element.appendChild(deleteBtn)
     })
 
     this.container.appendChild(list)
