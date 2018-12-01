@@ -14,8 +14,10 @@
 
     makeUI() {
       const inputBox = document.createElement('div')
+      const optionsButtonContainer = document.createElement('div')
 
       const input = document.createElement('input')
+      const inputBorder = document.createElement('span')
       const inputSearch = document.createElement('input')
 
       const button = document.createElement('button')
@@ -25,10 +27,19 @@
       const notFinishedButton = document.createElement('button')
 
       inputBox.setAttribute('class', 'add-task-box')
+
       input.setAttribute('class', 'add-task-box__input')
+      input.setAttribute('placeholder', 'Go to the shop...')
       inputSearch.setAttribute('class', 'add-task-box__input')
+
       button.setAttribute('class', 'add-task-box__button')
       searchButton.setAttribute('class', 'add-task-box__button')
+
+      optionsButtonContainer.setAttribute('class', 'options-button')
+
+      allTasksButton.setAttribute('class', 'add-task-box__button')
+      finishedButton.setAttribute('class', 'add-task-box__button')
+      notFinishedButton.setAttribute('class', 'add-task-box__button')
 
       button.addEventListener('click', () => {
         this.addTask(input.value)
@@ -65,11 +76,13 @@
       inputBox.appendChild(inputSearch)
       inputBox.appendChild(searchButton)
 
-      inputBox.appendChild(allTasksButton)
-      inputBox.appendChild(finishedButton)
-      inputBox.appendChild(notFinishedButton)
+
+      optionsButtonContainer.appendChild(allTasksButton)
+      optionsButtonContainer.appendChild(finishedButton)
+      optionsButtonContainer.appendChild(notFinishedButton)
 
       this.container.appendChild(inputBox)
+      this.container.appendChild(optionsButtonContainer)
     }
 
     showFinishedTasks() {

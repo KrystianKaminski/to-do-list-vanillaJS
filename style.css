@@ -25,23 +25,14 @@ body {
   text-align: center;
 }
 
-.add-task-box,
-.option-buttons-container {
+.add-task-box {
   margin: 100px auto;
   display: flex;
+  padding-bottom: 20px;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.add-task-box__title {
-  margin: 0;
-  color: white;
-  text-transform: uppercase;
-}
-
-.add-task-box__input-box {
-  position: relative;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .add-task-box__input {
@@ -56,26 +47,6 @@ body {
   background-color: #eee;
 }
 
-.add-task-box__input~.add-task-box__input-border {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background-color: #44bd32;
-  transition: 0.4s;
-}
-
-.add-task-box__input:focus~.add-task-box__input-border {
-  width: 100%;
-  transition: 0.4s;
-}
-
-.task-list__title {
-  color: white;
-  text-transform: uppercase;
-  text-align: center;
-}
 
 .task-list__list {
   max-width: 70%;
@@ -116,30 +87,27 @@ body {
 }
 
 .add-task-box__button {
-  margin: 30px 15px 15px 0;
-  width: 200px;
-  background: #3d94f6;
-  border-radius: 20px;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 100;
-  padding: 10px;
-  box-shadow: 1px 1px 20px 0px #000000;
-  text-shadow: 1px 1px 20px #000000;
-  border: solid #337fed 1px;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+  background-color: #e67e22;
+  border: 0;
+  color: #ecf0f1;
+  transition: all .3s;
 }
 
 .add-task-box__button:hover {
-  background: #1e62d0;
-  background-image: linear-gradient(to bottom, #1e62d0, #3d94f6);
-  text-decoration: none;
+  background-color: #c0392b;
+  cursor: pointer;
 }
 
 @media (min-width: 1024px) {
   .option-buttons-container {
     flex-direction: row;
   }
+}
+
+.options-button {
+  display: flex;
+  justify-content: center;
 }
